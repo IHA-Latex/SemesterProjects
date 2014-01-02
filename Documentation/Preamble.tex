@@ -1,0 +1,413 @@
+\newcommand{\HRule}{\rule{\linewidth}{0.8mm}}
+
+
+%Tekst i fotter
+\newcommand{\ProjectName}{433 MHz styring af AeroQuad}
+
+
+
+
+
+%----------------------------------------------------------
+\chapterstyle{hangnum} %Specific style
+
+\nouppercaseheads
+\makepagestyle{mystyle} 
+
+\usepackage{lastpage} %Get last Pagenumber
+\newcommand{\footerText}{\thepage\xspace /\pageref{LastPage}} % X/Y
+
+%On pages WITH \chapter
+\makeevenhead{mystyle}{\ProjectName \\}{\\ \leftmark}{\DocumentType \\} 
+\makeoddhead{mystyle}{\ProjectName \\}{\\ \leftmark}{\DocumentType \\} 
+\makeevenfoot{mystyle}{}{\footerText}{} 
+\makeoddfoot{mystyle}{}{\footerText}{} 
+\makeatletter
+\makepsmarks{mystyle}{% Overskriften på sidehovedet
+  \createmark{chapter}{left}{shownumber}{\@chapapp\ }{.\ }} 
+\makeatother
+\makefootrule{mystyle}{\textwidth}{\normalrulethickness}{0.4pt}
+\makeheadrule{mystyle}{\textwidth}{\normalrulethickness}
+
+
+%On pages WITH OUT \chapter:
+\makepagestyle{plain}
+\makeevenhead{plain}{}{}{}
+\makeoddhead{plain}{}{}{}
+\makeevenfoot{plain}{}{\footerText}{}
+\makeoddfoot{plain}{}{\footerText}{}
+\makefootrule{plain}{\textwidth}{\normalrulethickness}{0.4pt}
+
+\pagestyle{mystyle}
+%----------------------------------------------------------
+
+\newcommand{\signature}{\underline{\qquad \qquad \qquad \qquad \qquad \qquad \qquad}}
+
+%%----------------------------------------------------------------------
+%
+%%Redefining chapter style
+%%\renewcommand\chapterheadstart{\vspace*{\beforechapskip}}
+%\renewcommand\chapterheadstart{\vspace*{10pt}}
+%\renewcommand\printchaptername{\chapnamefont }%\@chapapp}
+%\renewcommand\chapternamenum{\space}
+%\renewcommand\printchapternum{\chapnumfont \thechapter}
+%\renewcommand\afterchapternum{\space: }%\par\nobreak\vskip \midchapskip}
+%\renewcommand\printchapternonum{}
+%\renewcommand\printchaptertitle[1]{\chaptitlefont #1}
+\setlength{\beforechapskip}{0pt} 
+\setlength{\afterchapskip}{0pt} 
+%\setlength{\voffset}{0pt} 
+\setlength{\headsep}{25pt}
+%\setlength{\topmargin}{35pt}
+%%\setlength{\headheight}{102pt}
+%\setlength{\textheight}{302pt}
+\renewcommand\afterchaptertitle{\par\nobreak\vskip \afterchapskip}
+%%----------------------------------------------------------------------
+
+
+
+
+%----------------------------------------------------------
+%Sidehoved og -fod pakke
+%----------------------------------------------------------
+%Margin
+\usepackage[left=3cm,right=2cm,top=2.5cm,bottom=2cm]{geometry}
+\usepackage{lastpage}
+%----------------------------------------------------------
+
+
+
+%----------------------------------------------------------
+%%URL kommandoer og sidetal farve
+%----------------------------------------------------------
+%%Kaldes med \url{www...}
+%\usepackage{color} %Skal også bruges
+%----------------------------------------------------------
+\usepackage{hyperref}
+\hypersetup{ 
+	colorlinks	= true, 	% false: boxed links; true: colored links
+    urlcolor	= blue,		% color of external links
+    linkcolor	= black, 	% color of page numbers
+    citecolor	= blue,
+}
+%----------------------------------------------------------
+
+
+
+%----------------------------------------------------------
+%Mellemrum mellem linjerne    
+%----------------------------------------------------------
+\linespread{1.5}
+%----------------------------------------------------------
+
+
+%----------------------------------------------------------
+%Seperated files
+%--------------------------------------------------
+%Opret filer således:
+%\documentclass[Navn-på-hovedfil]{subfiles}
+%\begin{document}
+% Indmad
+%\end{document}
+%
+% I hovedfil inkluderes således:
+% \subfile{navn-på-subfil}
+%--------------------------------------------------
+\usepackage{subfiles}
+%----------------------------------------------------------
+
+
+
+
+%----------------------------------------------------------
+%Standard sti at søge efter billeder
+%--------------------------------------------------
+%\begin{figure}[hbtp]
+%\centering
+%\includegraphics[scale=1]{filnavn-for-png}
+%\caption{Titel}
+%\label{fig:referenceNavn}
+%\end{figure}
+%--------------------------------------------------
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{float}
+\graphicspath{{../Figurer/}}
+%----------------------------------------------------------
+
+
+
+%Speciel skrift for enkelt linje kode
+%--------------------------------------------------
+%Udskriver med fonten 'Courier'
+%Mere info her: http://tex.stackexchange.com/questions/25249/how-do-i-use-a-particular-font-for-a-small-section-of-text-in-my-document
+%Eksempel: Funktionen \code{void Hello()} giver et output
+%--------------------------------------------------
+\newcommand{\code}[1]{{\fontfamily{pcr}\selectfont #1}}
+%----------------------------------------------------------
+
+
+% Følgende er til koder.
+%----------------------------------------------------------
+%\begin{lstlisting}[caption=Overskrift på boks, style=Code-C++, label=lst:referenceLabel]
+%public void hello(){}
+%\end{lstlisting}
+%----------------------------------------------------------
+
+%Exstra space
+\usepackage{xspace}
+%Navn på bokse efterfulgt af \xspace (hvis det skal være mellemrum
+%gives det med denne udvidelse. Ellers ingen mellemrum.
+\newcommand{\codeTitle}{Kodeudsnit\xspace}
+
+%Pakker der skal bruges til lstlisting
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
+\renewcommand{\lstlistingname}{\codeTitle}
+\lstdefinestyle{Code}
+{
+	keywordstyle	= \bfseries\ttfamily\color[rgb]{0,0,1},
+	identifierstyle	= \ttfamily,
+	commentstyle	= \color[rgb]{0.133,0.545,0.133},
+	stringstyle		= \ttfamily\color[rgb]{0.627,0.126,0.941},
+	showstringspaces= false,
+	basicstyle		= \small,
+	numberstyle		= \footnotesize,
+%	numbers			= left, % Tal? Udkommenter hvis ikke
+	stepnumber		= 2,
+	numbersep		= 6pt,
+	tabsize			= 2,
+	breaklines		= true,
+	prebreak 		= \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+	breakatwhitespace= false,
+%	aboveskip		= {1.5\baselineskip},
+  	columns			= fixed,
+  	upquote			= true,
+  	extendedchars	= true,
+ 	backgroundcolor = \color{lbcolor},
+	lineskip		= 1pt,
+%	xleftmargin		= 17pt,
+%	framexleftmargin= 17pt,
+	framexrightmargin	= 0pt, %6pt
+%	framexbottommargin	= 4pt,
+}
+
+%Bredde der bruges til indryk
+%Den skal være 6 pt mindre
+\usepackage{calc}
+\newlength{\mywidth}
+\setlength{\mywidth}{\textwidth-6pt}
+
+
+% Forskellige styles for forskellige kodetyper
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}%
+{\colorbox[cmyk]{0.43, 0.35, 0.35,0.35}{\parbox{\mywidth}{\hspace{5pt}#1#2#3}}}
+\captionsetup[lstlisting]
+{
+	format			= listing,
+	labelfont		= white,
+	textfont		= white, 
+	singlelinecheck	= false, 
+	width			= \mywidth,
+	margin			= 0pt, 
+	font			= {bf,footnotesize}
+}
+
+\lstdefinestyle{Code-C} {language=C, style=Code}
+\lstdefinestyle{Code-Java} {language=Java, style=Code}
+\lstdefinestyle{Code-C++} {language=[Visual]C++, style=Code}
+\lstdefinestyle{Code-VHDL} {language=VHDL, style=Code}
+\lstdefinestyle{Code-Bash} {language=Bash, style=Code}
+%----------------------------------------------------------
+
+
+
+
+
+%Text typesetting
+%----------------------------------------------------------
+\usepackage{baskervald}
+\usepackage[T1]{fontenc}              
+\usepackage[utf8]{inputenc}         
+\usepackage[danish]{babel}
+%----------------------------------------------------------
+ 
+
+
+%Dybde på indholdsfortegnelse
+%----------------------------------------------------------
+%Chapter, section, subsection, subsubsection
+%----------------------------------------------------------
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+%----------------------------------------------------------
+
+
+% Make new line after use of \paragraph{}
+%----------------------------------------------------------
+% Source: http://www.latex-community.org/forum/viewtopic.php?f=5&t=1383
+%----------------------------------------------------------
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+  {-3.25ex\@plus -1ex \@minus -.2ex}%
+  {1.5ex \@plus .2ex}%
+  {\normalfont\normalsize\bfseries}}
+\makeatother
+%----------------------------------------------------------
+
+
+%Tables
+%----------------------------------------------------------
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{multirow} 
+\usepackage{multicol} 
+\usepackage{booktabs}
+\usepackage{wrapfig}
+%----------------------------------------------------------
+
+
+
+%Misc
+%----------------------------------------------------------
+\usepackage{cite}
+\usepackage{appendix}
+\usepackage{amssymb}
+\usepackage{url,ragged2e}
+\usepackage{enumerate}
+\usepackage{amsmath} %Math bibliotek
+
+
+\usepackage{longtable}
+\usepackage{enumitem} %Styring af itemize og enumerate
+%----------------------------------------------------------
+
+
+
+\newcommand{\itoc}{I$^2$C \xspace}
+
+%Software function evironment
+%\begin{Function}
+%\name{•}
+%\para{•}
+%\retu{•}
+%\comm{•}
+%\end{Function}
+\newcommand{\class}[1]{\newpage \subsubsection{#1}}
+\newenvironment{Function}
+{\begin{longtable}{p{0.2\textwidth} p{0.75\textwidth}}}
+{\end{longtable}}
+
+\newcommand{\name}[1]{\hline \textbf{Navn: }& \code{#1}}
+\newcommand{\para}[1]{\\ \hline \textbf{Parametre: }& \code{#1}}
+\newcommand{\retu}[1]{\\ \textbf{Returværdi: }& \code{#1}}
+\newcommand{\comm}[1]{\\ \textbf{Funktionalitet: }& \parbox[t]{0.75\textwidth}{#1}}
+
+
+%UC environment:
+%Use as follow:
+%\begin{UseCase}
+%\UCnumber{0.5}{Test}
+%\UCgoal{Goal of Use Case.}
+%\UCinit{Use Case initieres of \dots}
+%\UCslutSuc{Succes }
+%\UCslutUnSuc{Unsucces}
+%
+%\UCnormFor{Normal happening 1: \\ Do stuff}
+%\begin{normFor}
+%\item Do this
+%\item Do that
+%\item[] \textit{However 1}
+%\end{normFor}
+%
+%\UCnormFor{Normal happening 2: \\ Do other stuff}
+%\begin{normFor}
+%\item Do this
+%\item[] \textit{However 2}
+%\item Do that
+%\end{normFor}
+%
+%\UCnormFor{Execptions: }
+%\begin{normFor}
+%\item[] \textit{However 1}
+%	\begin{itemize}
+%	\item Do this	
+%	\end{itemize}
+%\item[] \textit{However 2}
+%	\begin{itemize}
+%	\item Do this
+%	\item Then that
+%	\end{itemize}
+%\end{normFor}
+%
+%
+%\end{UseCase}
+
+\newcommand{\UCnumber}[2]{%
+\hline Use Case: #1 & #2%
+}
+\newcommand{\UCgoal}{\\ \hline Mål: &}
+\newcommand{\UCinit}{\\ Initiering: & }
+\newcommand{\UCstartb}{\\ Startbetingelser: & }
+\newcommand{\UCslutSuc}{\\ Slutbetingelser ved succes: & }
+\newcommand{\UCslutUnSuc}{\\ Slutbetingelser ved undtagelser: & }
+\newcommand{\UCenum}{noitemsep, leftmargin=*}%, nolistsep}
+\newcommand{\UCnormFor}[1]{\\ \hline \parbox[t]{0.25\textwidth}{#1}&}
+
+
+
+\newenvironment{UseCase}
+{\begin{longtable}{| p{0.25\textwidth} | p{0.70\textwidth} |}}
+{\\ \hline \end{longtable}}
+
+
+\newenvironment{normFor}
+{\vspace{-8mm}\begin{enumerate}[noitemsep,nolistsep,leftmargin=*]}
+{\end{enumerate}}
+
+
+
+%--------------------------------------------------
+%\begin{TestCaseIntro}
+%\TCprep{Preperation of sorts \\Anything here}
+%\TCdesc{Description of what is ablut to happen}
+%\end{TestCaseIntro}
+%--------------------------------------------------
+\newcommand{\TCdescWidth}{0.15 \textwidth}
+\newcommand{\TCIntroWidth}{0.8\textwidth}
+\newcommand{\TCprep}[1]{\textbf{Forberedelse:} & \parbox[t]{\TCIntroWidth}{#1}}
+\newcommand{\TCdesc}[1]{\\ \textbf{Beskrivelse:} & \parbox[t]{\TCIntroWidth}{#1}}
+
+\newenvironment{TestCaseIntro}
+{\begin{longtable}{p{\TCdescWidth} p{\TCIntroWidth}}}
+{\end{longtable}}
+%--------------------------------------------------
+
+
+
+%--------------------------------------------------
+%\begin{TestCase}
+%\TC
+%{Steps}
+%{Aktion to take}
+%{Expectation}
+%{Leave blank}
+%\end{TestCase}
+%--------------------------------------------------
+\newcommand{\TCsteps}{0.05 \textwidth}
+\newcommand{\TCexpected}{0.38 \textwidth}
+\newcommand{\TCmethod}{0.38 \textwidth}
+\newcommand{\TCsucces}{0.08 \textwidth}
+
+\newenvironment{TestCase}
+{\begin{longtable}{ p{\TCsteps}  p{\TCexpected} p{\TCmethod} p{\TCsucces} }
+\hline \textbf{Trin} & \textbf{Metode} & \textbf{Forventet} & \textbf{Succes}}
+{\\ \hline \end{longtable}}
+
+\newcommand{\TC}[4]{\\ \hline \parbox[t]{\TCsteps}{#1} & \parbox[t]{\TCmethod}{#2} &\parbox[t]{\TCexpected}{#3}&  \parbox[t]{\TCsucces}{#4} }
+%--------------------------------------------------

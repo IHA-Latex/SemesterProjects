@@ -1,0 +1,60 @@
+\documentclass[oneside, 12pt]{memoir}
+
+\newcommand{\DocumentType}{Accepttest}
+\input{../Preamble}
+
+%FixMe pakken viser små kommentarer, hvor der skal rettes
+%--------------------------------------------------
+%Brug med følgende: \fxnote{det her skal uddybes!}
+%Se liste over alle fixMe's: \listoffixmes
+%Erstat 'draft' med 'final' for at fjerne alle kommentarer
+%--------------------------------------------------
+\usepackage[footnote,final,danish,silent,nomargin]{fixme}
+
+\title{\DocumentType \\ for \\ \ProjectName}
+\date{18. december, 2013}
+\author{10893, Rasmus Bækgaard\\08830, Rasmus Berg Kloster}
+
+
+\begin{document}
+
+\begin{titlingpage}
+	\include{Forside}
+\end{titlingpage}
+
+
+\section*{Versionshistorie}
+\begin{tabular}{p{0.025\textwidth} p{0.12\textwidth} p{0.075\textwidth} p{0.68\textwidth}}
+\hline
+\textbf{\#} & \textbf{Dato} & \textbf{Initialer} & \textbf{Beskrivelse }\\
+\hline
+1.0 & 01/01 2014 & ABC & Tilføjet Use Cases 1, 2 og 3 \\ 
+1.1 & 02/01 2014 & STU & Rettet Use Case 2 \\
+1.2 & 04/01 2014 & VXY & Rettet tekst, tilføjet bedre beskrivelse, gennemlæsning af dokument og mere.\\ \hline
+\end{tabular} 
+ 
+
+
+\newpage
+\tableofcontents* %Indholdsfortegnelse
+%\newpage
+%\listoffigures* %Liste af figurer
+
+\listoffixmes
+
+\subfile{Intro}
+\subfile{UnitTest}
+\subfile{IntegrationTest}
+\subfile{Tests}
+
+
+
+
+%
+%\newpage
+%\appendix
+%
+%\bibliographystyle{ieeetr}
+%\bibliography{../Referencer}
+
+\end{document}

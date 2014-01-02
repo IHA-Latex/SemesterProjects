@@ -1,0 +1,175 @@
+\documentclass[Main]{subfiles}
+
+\begin{document}
+
+\chapter{Unit test}
+Beskriv, hvorfor der skal laves Unit test for jeres system.
+
+\section{Applikation}
+Herunder ses nogle af de unit tests der er kørt for applikationen\dots
+
+\subsection{Modtag tæller}
+Beskrivelse af hvad der skal gøres for, at køre en test der viser, at der kan gemmes filer. 
+Disse køres, hvis muligt, kun med kode -- selve applikationen skal derfor ikke åbnes.
+
+\begin{itemize}
+\item Åben C\#-projekt \textit{The App}.
+\item Åben \code{TheApp.Test.Unit} $\rightarrow$ \code{Counter.cs}
+\item Start unit test ved tryk på \code{Reshaper} $\rightarrow$ \code{Unit Tests} $\rightarrow$ \code{Run Unit Test}
+\item Testresultatet vil vises i et vindue med grønt, såfremt den er succesfuld.
+\end{itemize}
+
+Den testede kode er vist i \codeTitle \ref{lst:Get}
+
+\begin{lstlisting}[caption=Returnering af counter, style=Code-C++, label=lst:Get]
+using NUnit.Framework;
+
+namespace Test
+{
+	public class UnitTest
+	{
+		private ICounter _counter;
+
+		[SetUp]
+		public void TestInit()
+		{	
+			_counter = new Counter();
+		}
+
+		[Test]
+		public void GetCounter()
+		{
+			var value = _counter.GetCounter();
+			Assert.AreEqual(0, value);
+		}
+		
+		...
+	}
+}
+\end{lstlisting}
+
+
+
+\subsection{Sæt tæller}
+For at sætte tælleren skrives først til den, hvorefter den aflæses.
+
+\codeTitle \ref{lst:Set} viser test af Setter-funktionen.
+\begin{lstlisting}[caption=Setter-funktion, style=Code-C, label=lst:Set]
+	...
+	[Test]
+	public void SetCounterTest()
+	{
+		_counter.SetCounter(2);
+		var value = _counter.GetCounter();
+		Assert.AreEqual(2, value);
+	}
+	...
+\end{lstlisting}
+
+
+
+\newpage
+
+
+\newpage
+\section{Aflæsning på µ-controller}
+Test om µ-controller kunne læse temperaturmåler.
+
+\paragraph{Udstyr}
+
+\begin{itemize}
+\item STK500 kit
+\item LM75 board
+\end{itemize}
+
+
+\paragraph{Forbindelser:}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{c c c c c}
+\hline 
+STK500 & LM75 &  STK500 \\ 
+\hline 
+PB0 & $\bullet$ & RXD \\
+PB1 & $\bullet$ & TXD \\ 
+PC0 & SCL & $\bullet$ \\
+PC1 & SDA & $\bullet$ \\
+PC8 og PC9 & GND og VCC & $\bullet$ \\
+\hline 
+\end{tabular} 
+\caption{Hardware forbindelser}
+\label{tbl:oversigt}
+\end{table}
+
+
+Vtarget på STK500 skal sættes til 3.3V ned fra de normale 5V.
+
+Radioen har nogle test register der kan læses fra. "Test0", "Test1" og "Test2" 
+
+I dette forsøg læsers der fra Test2.
+"This register will be forced to 0x88 or 0x81 when it wakes up from
+SLEEP mode, depending on the configuration of FIFOTHR." \cite{TI-cc1101}
+
+Med testkoden, skal svaret være "0x88". Resultatet kan ses på led porten på STK500 kittet.
+
+\begin{lstlisting}[caption=SPI test, style=Code-C, label=lst:itocLEs]
+// includes
+#include <avr/io.h>
+#include <util/delay.h>
+#include <avr/sleep.h>
+
+
+// variables
+
+void SPI_MasterInit(void)         //Initialize Atmega8 as master
+{
+	DDRB = (1<<DDB5)|(1<<DDB3)|(1<<DDB2);   // Set MOSI,SCK and SS\ output, all others input
+	SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR0);   //  Enable SPI, Master, set clock rate fck/16
+}
+
+//Toggle CSn
+void CSn(int i)
+{
+	if(i==1)
+	PORTB|=0x04;
+	else
+	PORTB&=0xFB;
+}
+
+
+unsigned char SPI_transmit(unsigned char data)
+{
+	// Start transmission
+	SPDR = data;
+
+	// Wait for transmission complete
+	while(!(SPSR & (1<<SPIF)));
+	data = SPDR;
+
+	return(data);
+}
+
+int main()
+{
+    DDRC = 0xFF;
+	SPI_MasterInit();         //initialize SPI
+	
+	CSn(0);
+	//This register will be forced to 0x88 or 0x81 when it wakes up from SLEEP mode
+	SPI_transmit(0xAE); //Read test 2 register
+	PORTC = SPI_transmit(0x3B); //strobe - flush TX
+	CSn(1);
+
+	while (1)
+	{
+
+	}
+}
+\end{lstlisting}
+
+
+
+
+
+\end{document}

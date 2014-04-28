@@ -28,7 +28,7 @@ One way of doing it is as follow:
 		- dummy.png
 		- ...
 	+ Modules/
-		/* This is a submodule - Read later for it */
+		/* This is a [submodule][LatexModules] - Read later for it */
 	+ PreliminaryAnalysis/
 		- Main.tex
 		- Preamble.tex
@@ -80,11 +80,18 @@ LatexModules
 ------------
 In the Preamble.tex file you register all the packages, environments and style you want to use in you current document.
 This file easily exceeds 200 lines of uncontrollable code.
-
 Also - creating the preamble is what takes the longest time. So this has been done for you as well.
 See [LatexModules](https://github.com/Limro/LatexModules).
 
 By dividing what you need in small modules - each a standalone .tex file, you can reuse these for other documents.
-
 These can be added to the Preamble with the `\input{../path/filename}` command.
 
+
+
+The documentclass Memoir
+------------------------
+There are different types of documentclasses which all gives the document a specific style.
+A common style is `article` but it is not suited for bigger documents.
+This is where the style `memoir` comes into play. The memoir-class has a HUGE documentation which can be found [here](http://www.tex.ac.uk/ctan/macros/latex/contrib/memoir/memman.pdf)
+
+There are many good things to say about `memoir` class but you find the most essential in the template.

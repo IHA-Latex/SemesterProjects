@@ -1,0 +1,137 @@
+\documentclass[Main]{subfiles}
+
+\begin{document}
+
+\chapter{Integrationstests}
+
+Beskriv hvorfor der udføres integrationstest.
+Eksempel:
+
+\subsection{Applikationen}
+For at sikre, at der bliver foretaget specifikke kald udføres en integrationstest, \codeTitle \ref{lst:int1}.
+
+\begin{lstlisting}[caption=Integrationstest, style=Code-Java, label=lst:int1]
+	public class IntegrationTest
+	{
+		private Mock<ICounter> _counterMock;
+		private IColletor _colletor;
+
+		[SetUp]
+		public void Setup()
+		{
+			_counterMock = new Mock<ICounter>();
+			_colletor = new Collector(_counterMock.Object);
+		}
+
+		[TearDown]
+		public void TearDown()
+		{
+			_counterMock = null;
+			_colletor = null;
+		}
+
+		[Test]
+		public void CheckUnderTwo()
+		{
+			_counterMock.Setup(p => p.GetCounter()).Returns(1);
+			_colletor.Check();
+			
+			//Is SetStatus called?
+			_counterMock.Verify(p => p.SetStatus(true), Times.Never);
+		}
+
+		[Test]
+		public void CheckOverTwo()
+		{
+			_counterMock.Setup(p => p.GetCounter()).Returns(3);
+			_colletor.Check();
+			
+			//Is SetStatus called?
+			_counterMock.Verify(p => p.SetStatus(true), Times.AtLeastOnce);
+		}
+	}
+\end{lstlisting}
+
+Først oprettes der en mock at \code{ICounter}, som får én bestemt værdi, der checkes af en  klasse af typen \code{ICollector}. 
+Såfremt den pågældende værdi er under 2 skal \code{IColletor}'s funktion ikke kaldes.
+Hvis den er skal den kaldes én gang.
+
+
+
+
+
+
+\section{Aflæsning på µ-controller}
+Test af kommunikation fra µ-controller til temperaturmåler.
+
+\subsection{Læsning af temperatur}
+For at læse temperaturen bruges bestemt udstyr samt bestemte forbindelser.
+
+\paragraph{Udstyr}
+
+\begin{itemize}
+\item STK500 kit
+\item LM75 board
+\end{itemize}
+
+
+\paragraph{Forbindelser:}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c c c c c}
+\hline 
+STK500 & LM75 &  STK500 \\ 
+\hline 
+PB0 & $\bullet$ & RXD \\
+PB1 & $\bullet$ & TXD \\ 
+PC0 & SCL & $\bullet$ \\
+PC1 & SDA & $\bullet$ \\
+PC8 og PC9 & GND og VCC & $\bullet$ \\
+\hline 
+\end{tabular} 
+\caption{Hardware forbindelser}
+\label{tbl:oversigt}
+\end{table}
+
+\codeTitle \ref{lst:LM75Read} viser det kode der skal til for, at aflæse temperaturmåleren.
+
+\begin{lstlisting}[caption=Funktion til læsning af LM75, style=Code-C, label=lst:LM75Read]
+int LM75_temperature(unsigned char SensorAddress)
+{
+	i2c_start();
+	
+	unsigned char address = ((0b01001000 | SensorAddress) << 1) | 0x01;
+	i2c_write(address); //Address write
+	
+	unsigned char tempMSB = i2c_read(0x00); 
+	
+	unsigned char tempLSB = i2c_read(0x01);
+	
+	i2c_stop();
+	
+	return (tempLSB>>7) | (tempMSB<<1);
+}
+
+\end{lstlisting}
+
+For at teste \codeTitle \ref{lst:LM75Read} køres \codeTitle \ref{lst:LM75Reading}.
+
+\begin{lstlisting}[caption=Funktion til læsning af LM75, style=Code-C, label=lst:LM75Reading]
+#include <avr/delay.h>
+#include "UART.h"
+
+void main()
+{
+	int reading = LM75_temperature(0);
+	SendInteger(reading);
+	_delay_ms(250);
+}
+\end{lstlisting}
+
+
+
+
+
+
+\end{document}

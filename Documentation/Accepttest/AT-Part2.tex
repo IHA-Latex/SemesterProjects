@@ -1,0 +1,70 @@
+\documentclass[Main]{subfiles}
+
+\begin{document}
+
+\chapter{Unit test}
+Beskriv, hvorfor der skal laves Unit test for jeres system.
+Eksempel:
+
+\section{Applikation}
+Herunder ses nogle af de unit tests der er kørt for applikationen\dots
+
+\subsection{Modtag tæller}
+Beskrivelse af hvad der skal gøres for, at køre en test der viser, at der kan gemmes filer. 
+Disse køres, hvis muligt, kun med kode -- selve applikationen skal derfor ikke åbnes.
+
+\begin{itemize}
+\item Åben C\#-projekt \textit{The App}.
+\item Åben \code{TheApp.Test.Unit} $\rightarrow$ \code{Counter.cs}
+\item Start unit test ved tryk på \code{Reshaper} $\rightarrow$ \code{Unit Tests} $\rightarrow$ \code{Run Unit Test}
+\item Testresultatet vil vises i et vindue med grønt, såfremt den er succesfuld.
+\end{itemize}
+
+Den testede kode er vist i \codeTitle \ref{lst:Get}
+
+\begin{lstlisting}[caption=Returnering af counter, style=Code-C++, label=lst:Get]
+using NUnit.Framework;
+
+namespace Test
+{
+	public class UnitTest
+	{
+		private ICounter _counter;
+
+		[SetUp]
+		public void TestInit()
+		{	
+			_counter = new Counter();
+		}
+
+		[Test]
+		public void GetCounter()
+		{
+			var value = _counter.GetCounter();
+			Assert.AreEqual(0, value);
+		}
+		
+		...
+	}
+}
+\end{lstlisting}
+
+
+
+\subsection{Sæt tæller}
+For at sætte tælleren skrives først til den, hvorefter den aflæses.
+\codeTitle \ref{lst:Set} viser test af Setter-funktionen.
+\begin{lstlisting}[caption=Setter-funktion, style=Code-C, label=lst:Set]
+	...
+	[Test]
+	public void SetCounterTest()
+	{
+		_counter.SetCounter(2);
+		var value = _counter.GetCounter();
+		Assert.AreEqual(2, value);
+	}
+	...
+\end{lstlisting}
+
+
+\end{document}

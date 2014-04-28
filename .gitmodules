@@ -1,0 +1,6 @@
+[submodule "LatexModules"]
+	path = LatexModules
+	url = git@github.com:Limro/LatexModules.git
+[submodule "Documentation/LatexModules"]
+	path = Documentation/LatexModules
+	url = git@github.com:Limro/LatexModules.git

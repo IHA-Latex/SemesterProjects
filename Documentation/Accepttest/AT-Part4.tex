@@ -1,0 +1,78 @@
+\documentclass[Main]{subfiles}
+
+\begin{document}
+
+\chapter{Use Cases}
+
+\section{Use Case 1 -- System initialisering}
+
+\subsection*{Normal run 1 -- Start up}
+\vspace{-10pt}
+\begin{TestCaseIntro}
+\TCprep{Do something.\cite{Krav}} 
+\TCdesc{This will do something.}
+\end{TestCaseIntro}
+
+\vspace{-10pt}
+\begin{TestCase}
+\TC
+{1-3}
+{Place something somewhere.}
+{Something will happen after 3 seconds, move, then stop and beep twice.}
+{}
+\end{TestCase}
+
+
+
+
+
+
+
+\subsection*{Normal run 2 -- Stop moving}
+\vspace{-10pt}
+\begin{TestCaseIntro}
+\TCprep{Do something else.}
+\TCdesc{This will do something else.}
+\end{TestCaseIntro}
+
+\vspace{-10pt}
+\begin{TestCase}
+\TC
+{1-3}
+{Hit the blue button.}
+{Something will happen after 3 seconds, move, then stop and beep twice.}
+{}
+
+\TC
+{4-5}
+{Pick it up}
+{It will resist your restraints and run off}
+{}
+\end{TestCase}
+
+
+
+
+
+\subsection*{Exception -- Boot up.}
+\vspace{-10pt}
+
+\begin{TestCaseIntro}
+\TCprep{Place explosive beneath it. }
+\TCdesc{This might blow}
+\end{TestCaseIntro}
+
+\vspace{-10pt}
+\begin{TestCase}
+\TC
+{1}
+{Hit the red button.}
+{It might tilt a bit to the left.}
+{}
+\end{TestCase}
+
+
+
+
+
+\end{document}

@@ -32,7 +32,7 @@ One way of doing it is as follow:
 		- dummy.png
 		- ...
 	+ Modules/
-		/* This is a [submodule][LatexModules] - Read later for it */
+		# This is a Submodule - Read later for it
 	+ PreliminaryAnalysis/
 		- Forside.tex
 		- Main.tex

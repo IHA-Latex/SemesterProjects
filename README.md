@@ -99,13 +99,7 @@ By dividing what you need in small modules - each a standalone .tex file, you ca
 These can be added to the Preamble with the `\input{../path/filename}` command.
 
 To use these you first fork the project to your own organization / account.
-After this you clone it and must update the submodules:
-
-```git
-git clone #git@github.com:Organization/Name.git LocalFolderName
-git submodule init
-git submodule update
-```
+After this you download the [LatexModules](https://github.com/Limro/LatexModules) into a folder (as described under the installation in LatexModules).
 
 
 

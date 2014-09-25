@@ -2,19 +2,23 @@
 
 \input{Preamble}
 
+\newcommand{\ProjectType}{Project type} %Bachelor project / Semester project / Assignment
+\newcommand{\DocumentType}{Title} %Report / Accept document / preliminary 
+\newcommand{\ProjectName}{TI-ARDI}
+
 \begin{document}
 
 
-\subfile{Forside}
+\subfile{Frontpage}
 \subfile{Version}
 
 
 \newpage
-\tableofcontents* %Indholdsfortegnelse
+\tableofcontents* % Table of Contents
 \newpage
-\listoffigures* %Liste af figurer
+\listoffigures* %List of figures
 
-\listoffixmes %Se Preamble
+\listoffixmes %See LatexModule 
 
 \subfile{AT-Part1}
 \subfile{AT-Part2}

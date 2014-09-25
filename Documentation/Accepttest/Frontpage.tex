@@ -1,0 +1,72 @@
+% Notice:
+% This .tex-file will only work with the memoir-package.
+% It relies on the \begin-end{titlingpage}
+
+\documentclass[Main]{subfiles}
+
+\begin{document}
+
+\begin{titlingpage}
+\begin{center}
+
+\textsc{\Large \ProjectType}\\[0.25cm]
+
+
+% Title
+\HRule \\[0.4cm]
+
+{ \huge \bfseries \DocumentType}\\[0.4cm]
+{ \huge \bfseries for}\\[0.4cm] 
+{ \huge \bfseries \ProjectName}\\[0.4cm]
+
+\HRule \\[0.5cm]
+
+\begin{tabular}{p{0.15\textwidth} | p{0.8\textwidth}}
+\hline 
+Author(s): & Author1, Author 2, Author 3\\ 
+\hline 
+Page count: & \pageref{LastPage} \\
+\hline 
+Location: & Aarhus University \\
+\hline
+\end{tabular} 
+\end{center}
+
+
+% Signatures
+\begin{Authors}
+
+\AT
+{Author 1}
+{Student number}
+{Field of studie}
+
+&& % split between two signatures
+
+\AT
+{Author 2}
+{Student number}
+{Field of studie}
+
+\\ % New lines for more signatures
+
+
+\AT
+{Author 3}
+{Student number}
+{Field of studie}
+
+&& % New lines for more signatures
+
+\AT
+{Author 4}
+{Student number}
+{Field of studie}
+
+\end{Authors}
+
+
+\end{titlingpage}
+
+
+\end{document}
